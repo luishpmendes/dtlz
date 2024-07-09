@@ -56,8 +56,21 @@ $(BIN)/test/moead_solver_test : $(BIN)/solver/solver.o \
 
 moead_solver_test : clean $(BIN)/test/moead_solver_test
 
+$(BIN)/test/mhaco_solver_test : $(BIN)/solver/solver.o \
+                                $(BIN)/solver/mhaco/mhaco_solver.o \
+                                $(BIN)/test/mhaco_solver_test.o 
+	@echo "--> Linking objects..." 
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+	@echo "--> Running test..."
+	$(BIN)/test/mhaco_solver_test
+	@echo
+
+mhaco_solver_test : clean $(BIN)/test/mhaco_solver_test
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
+	   mhaco_solver_test \
 
 all: tests
