@@ -80,10 +80,24 @@ $(BIN)/test/ihs_solver_test : $(BIN)/solver/solver.o \
 
 ihs_solver_test : clean $(BIN)/test/ihs_solver_test
 
+$(BIN)/test/nsbrkga_solver_test : $(BIN)/solver/solver.o \
+                                  $(BIN)/solver/nsbrkga/decoder.o \
+                                  $(BIN)/solver/nsbrkga/nsbrkga_solver.o \
+                                  $(BIN)/test/nsbrkga_solver_test.o 
+	@echo "--> Linking objects..." 
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+	@echo "--> Running test..."
+	$(BIN)/test/nsbrkga_solver_test
+	@echo
+
+nsbrkga_solver_test : clean $(BIN)/test/nsbrkga_solver_test
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
 	   mhaco_solver_test \
 	   ihs_solver_test \
+	   nsbrkga_solver_test
 
 all: tests
