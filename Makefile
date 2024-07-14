@@ -93,6 +93,16 @@ $(BIN)/test/nsbrkga_solver_test : $(BIN)/solver/solver.o \
 
 nsbrkga_solver_test : clean $(BIN)/test/nsbrkga_solver_test
 
+$(BIN)/exec/nsga2_solver_exec : $(BIN)/solver/solver.o \
+                                $(BIN)/solver/nsga2/nsga2_solver.o \
+                                $(BIN)/utils/argument_parser.o \
+                                $(BIN)/exec/nsga2_solver_exec.o 
+	@echo "--> Linking objects..."
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+
+nsga2_solver_exec : clean $(BIN)/exec/nsga2_solver_exec
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
@@ -100,4 +110,6 @@ tests: nsga2_solver_test \
 	   ihs_solver_test \
 	   nsbrkga_solver_test
 
-all: tests
+execs: nsga2_solver_exec \
+
+all: tests execs
