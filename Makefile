@@ -143,6 +143,15 @@ $(BIN)/exec/ihs_solver_exec : $(BIN)/solver/solver.o \
 
 ihs_solver_exec : clean $(BIN)/exec/ihs_solver_exec
 
+$(BIN)/exec/reference_pareto_front_calculator_exec : $(BIN)/solver/solver.o \
+													 $(BIN)/utils/argument_parser.o \
+                                                     $(BIN)/exec/reference_pareto_front_calculator_exec.o
+	@echo "--> Linking objects..."
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+
+reference_pareto_front_calculator_exec : $(BIN)/exec/reference_pareto_front_calculator_exec
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
@@ -155,5 +164,6 @@ execs: nsga2_solver_exec \
 	   moead_solver_exec \
 	   mhaco_solver_exec \
 	   ihs_solver_exec \
+	   reference_pareto_front_calculator_exec \
 
 all: tests execs
