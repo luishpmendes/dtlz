@@ -133,6 +133,16 @@ $(BIN)/exec/mhaco_solver_exec : $(BIN)/solver/solver.o \
 
 mhaco_solver_exec : clean $(BIN)/exec/mhaco_solver_exec
 
+$(BIN)/exec/ihs_solver_exec : $(BIN)/solver/solver.o \
+                              $(BIN)/solver/ihs/ihs_solver.o \
+                              $(BIN)/utils/argument_parser.o \
+                              $(BIN)/exec/ihs_solver_exec.o 
+	@echo "--> Linking objects..."
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+
+ihs_solver_exec : clean $(BIN)/exec/ihs_solver_exec
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
@@ -144,5 +154,6 @@ execs: nsga2_solver_exec \
        nspso_solver_exec \
 	   moead_solver_exec \
 	   mhaco_solver_exec \
+	   ihs_solver_exec \
 
 all: tests execs
