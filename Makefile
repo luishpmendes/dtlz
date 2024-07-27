@@ -187,6 +187,14 @@ $(BIN)/exec/multiplicative_epsilon_calculator_exec : $(BIN)/utils/argument_parse
 
 multiplicative_epsilon_calculator_exec : $(BIN)/exec/multiplicative_epsilon_calculator_exec
 
+$(BIN)/exec/results_aggregator_exec : $(BIN)/utils/argument_parser.o \
+                                      $(BIN)/exec/results_aggregator_exec.o
+	@echo "--> Linking objects..."
+	$(CPP) -o $@ $^ $(CARGS) $(INC)
+	@echo
+
+results_aggregator_exec : $(BIN)/exec/results_aggregator_exec
+
 tests: nsga2_solver_test \
 	   nspso_solver_test \
 	   moead_solver_test \
@@ -204,5 +212,6 @@ execs: nsga2_solver_exec \
 	   hypervolume_ratio_calculator_exec \
 	   modified_generational_distance_calculator_exec \
 	   multiplicative_epsilon_calculator_exec \
+	   results_aggregator_exec
 
 all: tests execs
