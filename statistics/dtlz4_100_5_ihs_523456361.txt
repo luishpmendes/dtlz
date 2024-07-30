@@ -1,0 +1,22 @@
+DTLZ: 4
+Number of variables: 100
+Number of objectives: 5
+Seed: 523456361
+Time limit: 90
+Iterations limit: 4294967295
+Maximum number of solutions: 500
+Maximum number of snapshots: 15
+Population size: 300
+Number of iterations: 10812
+Solutions obtained: 468
+Solving time: 90.0123
+Number of snapshots: 15
+Time next snapshot: 90.0215
+Time when the last snapshot was taken: 90.0112
+Number of iteration of the next snapshot: 4294967295
+Iteration when the last snapshot was taken: 10812
+Probability of choosing from memory: 0.85
+Minimum pitch adjustment rate: 0.35
+Maximum pitch adjustment rate: 0.99
+Minimum distance bandwidth: 1e-05
+Maximum distance bandwidth: 1
