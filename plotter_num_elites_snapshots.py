@@ -15,7 +15,7 @@ for dtlz in dtlzs:
                 plt.ylabel("Number of elites", fontsize = "x-large")
                 for solver in solvers:
                     if solver.startswith("nsbrkga"):
-                        filename = os.path.join(dirname, "num_elites_snapshots/dtlz" + str(dtlz) + "_" + str(n) + "_" + str(m) + "_" + solvers + "_" + version + ".txt")
+                        filename = os.path.join(dirname, "num_elites_snapshots/dtlz" + str(dtlz) + "_" + str(n) + "_" + str(m) + "_" + solver + "_" + version + ".txt")
                         if os.path.exists(filename):
                             x = []
                             y = []

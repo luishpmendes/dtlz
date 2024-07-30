@@ -26,6 +26,8 @@ mkdir -p ${path}/populations_snapshots
 mkdir -p ${path}/num_elites_snapshots
 mkdir -p ${path}/hypervolume
 mkdir -p ${path}/hypervolume_snapshots
+mkdir -p ${path}/multiplicative_epsilon
+mkdir -p ${path}/multiplicative_epsilon_snapshots
 mkdir -p ${path}/igd_plus
 mkdir -p ${path}/igd_plus_snapshots
 mkdir -p ${path}/metrics
@@ -192,8 +194,8 @@ do
                     command+="--pareto-${j} ${path}/pareto/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     command+="--best-solutions-snapshots-${j} ${path}/best_solutions_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
                     command+="--populations-snapshots-${j} ${path}/populations_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
-                    command+="--hypervolume-ratio-${j} ${path}/hypervolume/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
-                    command+="--hypervolume-ratio-snapshots-${j} ${path}/hypervolume_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
+                    command+="--hypervolume-${j} ${path}/hypervolume/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
+                    command+="--hypervolume-snapshots-${j} ${path}/hypervolume_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     j=$((j+1))
                 done
             done
@@ -308,8 +310,8 @@ do
                 do
                     command+="--pareto-${j} ${path}/pareto/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     command+="--best-solutions-snapshots-${j} ${path}/best_solutions_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
-                    command+="--multiplicative-epsilon-${j} ${path}/multiplicative_epsilon/dtlz${dtlz}_${n}_${m}__${solver}_${seed}.txt "
-                    command+="--multiplicative-epsilon-snapshots-${j} ${path}/multiplicative_epsilon_snapshots/dtlz${dtlz}_${n}_${m}__${solver}_${seed}.txt "
+                    command+="--multiplicative-epsilon-${j} ${path}/multiplicative_epsilon/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
+                    command+="--multiplicative-epsilon-snapshots-${j} ${path}/multiplicative_epsilon_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     j=$((j+1))
                 done
             done
