@@ -341,6 +341,8 @@ done
 
 eval $final_command
 
+wait
+
 commands=()
 
 for ((i=0;i<num_processes;i++))
