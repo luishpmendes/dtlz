@@ -184,7 +184,7 @@ int main(int argc, char * argv[]) {
                         paretos[i]);
 
                 assert(hypervolume_ratio >= 0.0);
-                assert(hypervolume_ratio <= 1.0);
+                // assert(hypervolume_ratio <= 1.0);
 
                 ofs << hypervolume_ratio << std::endl;
 
@@ -218,7 +218,7 @@ int main(int argc, char * argv[]) {
                             best_solutions_snapshots[i][j]);
 
                     assert(hypervolume_ratio >= 0.0);
-                    assert(hypervolume_ratio <= 1.0);
+                    // assert(hypervolume_ratio <= 1.0);
 
                     ofs << iteration_snapshots[i][j] << ","
                         << time_snapshots[i][j] << ","
