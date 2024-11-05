@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
 import seaborn as sns
 import ptitprince as pt
 import os
@@ -36,13 +37,13 @@ time_per_solver = {}
 for solver in solvers:
     igd_plus_per_solver[solver] = []
     time_per_solver[solver] = []
-    for i in range(num_snapshots + 1):
+    for i in range(num_snapshots):
         igd_plus_per_solver[solver].append([])
         time_per_solver[solver].append([])
 
 igd_plus_per_snapshot = []
 
-for i in range(num_snapshots + 1):
+for i in range(num_snapshots):
     igd_plus_per_snapshot.append([])
     for solver in solvers:
         igd_plus_per_snapshot[i].append([])
@@ -65,36 +66,34 @@ for dtlz in dtlzs:
                             csv_file.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("Time (s)", fontsize = "x-large")
-plt.ylabel("HVR", fontsize = "x-large")
+plt.xlabel("Time (s)")
+plt.ylabel("Modified Inverted Generational Distance")
 for i in range(len(solvers)):
     x = []
     y = []
-    for j in range(num_snapshots + 1):
+    for j in range(num_snapshots):
         x.append(stats.mean(time_per_solver[solvers[i]][j]))
         y.append(stats.mean(igd_plus_per_solver[solvers[i]][j]))
     plt.plot(x, y, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.80)
-plt.xlim(left = 1, right = 1000)
-# plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.yscale("function", functions=(partial(np.power, 10.0), np.log10))
-plt.xscale("log", base = 10)
-plt.legend(loc = "best", fontsize = "large")
+plt.xscale("log")
+plt.yscale("log")
+plt.legend(loc = "best")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus_snapshots/igd_plus_mean_snapshots.png")
 plt.savefig(filename, format = "png")
-filename = os.path.join(dirname, "igd_plus_snapshots/igd_plus_mean_snapshots.eps")
-plt.savefig(filename, format = "eps")
 plt.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("Time (s)", fontsize = "x-large")
-plt.ylabel("Modified Inverted Generational Distance", fontsize = "x-large")
+plt.xlabel("Time (s)")
+plt.ylabel("Modified Inverted Generational Distance")
 for i in range(len(solvers)):
     x = []
     y0 = []
     y2 = []
-    for j in range(num_snapshots + 1):
+    for j in range(num_snapshots):
         x.append(stats.mean(time_per_solver[solvers[i]][j]))
         quantiles = stats.quantiles(igd_plus_per_solver[solvers[i]][j])
         y0.append(quantiles[0])
@@ -103,20 +102,23 @@ for i in range(len(solvers)):
 for i in range(len(solvers)):
     x = []
     y1 = []
-    for j in range(num_snapshots + 1):
+    for j in range(num_snapshots):
         x.append(stats.mean(time_per_solver[solvers[i]][j]))
         quantiles = stats.quantiles(igd_plus_per_solver[solvers[i]][j])
         y1.append(quantiles[1])
     plt.plot(x, y1, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.75)
-# plt.xlim(left = 0.0, right = max_time)
-# plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.yscale("function", functions=(partial(np.power, 10.0), np.log10))
-plt.legend(loc = "best", fontsize = "large")
+plt.xscale("log")
+plt.yscale("log")
+plt.legend(loc = "best")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus_snapshots/igd_plus_quartiles_snapshots.png")
 plt.savefig(filename, format = "png")
 plt.close()
 
-for snapshot in range(num_snapshots + 1):
+for snapshot in range(num_snapshots):
     plt.figure(figsize = (11, 11))
     plt.title("DTLZ", fontsize = "xx-large")
     plt.xlabel("Modified Inverted Generational Distance", fontsize = "x-large")

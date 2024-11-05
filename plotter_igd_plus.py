@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
 import seaborn as sns
 import ptitprince as pt
 import os
@@ -88,13 +89,13 @@ for dtlz in dtlzs:
                                 igd_plus[i].append(float(row[0]))
                             csv_file.close()
 
-plt.figure(figsize = (11, 11))
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("Modified Inverted Generational Distance", fontsize = "x-large")
+plt.figure()
+plt.xlabel("Modified Inverted Generational Distance")
 pt.half_violinplot(data = igd_plus, palette = colors, orient = "h", width = 0.6, cut = 0.0, inner = None)
 sns.stripplot(data = igd_plus, palette = colors, orient = "h", size = 2, zorder = 0)
 sns.boxplot(data = igd_plus, orient = "h", width = 0.20, color = "black", zorder = 10, showcaps = True, boxprops = {'facecolor' : 'none', "zorder" : 10}, showfliers = True, whiskerprops = {'linewidth' : 2, "zorder" : 10}, flierprops = {'markersize' : 2})
 plt.yticks(ticks = list(range(len(solvers))), labels = [solver_labels[solver] for solver in solvers], fontsize = "large")
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus/igd_plus.png")
 plt.savefig(filename, format = "png")
 plt.close()
@@ -120,27 +121,29 @@ for n in ns:
                             csv_file.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("n", fontsize = "x-large")
-plt.ylabel("Modified Inverted Generational Distance", fontsize = "x-large")
-plt.xticks(ns)
+plt.xlabel("Number of Variables")
+plt.ylabel("Modified Inverted Generational Distance")
+plt.grid(alpha=0.5, color='gray', linestyle='dashed', linewidth=0.5, which='both')
 for i in range(len(solvers)):
     y = []
     for n in ns:
         y.append(stats.mean(igd_plus_per_n[solvers[i]][n]))
     plt.plot(ns, y, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.80)
-plt.xlim(left = max(min(ns) - 1, 0), right = max(ns) + 1)
-plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.legend(loc = "best", fontsize = "large")
+plt.xscale("log")
+plt.yscale("log")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%d'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.legend(loc = "best")
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus/igd_plus_mean_per_n.png")
 plt.savefig(filename, format = "png")
 plt.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("n", fontsize = "x-large")
-plt.ylabel("Modified Inverted Generational Distance", fontsize = "x-large")
-plt.xticks(ns)
+plt.xlabel("Number of Variables")
+plt.ylabel("Modified Inverted Generational Distance")
+plt.grid(alpha=0.5, color='gray', linestyle='dashed', linewidth=0.5, which='both')
 for i in range(len(solvers)):
     y0 = []
     y2 = []
@@ -155,9 +158,13 @@ for i in range(len(solvers)):
         quantiles = stats.quantiles(igd_plus_per_n[solvers[i]][n])
         y1.append(quantiles[1])
     plt.plot(ns, y1, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.75)
-plt.xlim(left = max(min(ns) - 1, 0), right = max(ns) + 1)
-plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.legend(loc = "best", fontsize = "large")
+plt.xscale("log")
+plt.yscale("log")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%d'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.legend(loc = "best")
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus/igd_plus_quartiles_per_n.png")
 plt.savefig(filename, format = "png")
 plt.close()
@@ -183,27 +190,30 @@ for m in ms:
                             csv_file.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("m", fontsize = "x-large")
-plt.ylabel("Modified Inverted Generational Distance", fontsize = "x-large")
+plt.xlabel("Number of Objectives")
+plt.ylabel("Modified Inverted Generational Distance")
 plt.xticks(ms)
+plt.grid(alpha=0.5, color='gray', linestyle='dashed', linewidth=0.5, which='both')
 for i in range(len(solvers)):
     y = []
     for m in ms:
         y.append(stats.mean(igd_plus_per_m[solvers[i]][m]))
     plt.plot(ms, y, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.80)
-plt.xlim(left = max(min(ms) - 1, 0), right = max(ms) + 1)
-plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.legend(loc = "best", fontsize = "large")
+plt.yscale("log")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%d'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.legend(loc = "best")
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus/igd_plus_mean_per_m.png")
 plt.savefig(filename, format = "png")
 plt.close()
 
 plt.figure()
-plt.title("DTLZ", fontsize = "xx-large")
-plt.xlabel("m", fontsize = "x-large")
-plt.ylabel("Modified Inverted Generational Distance", fontsize = "x-large")
+plt.xlabel("Number of Objectives")
+plt.ylabel("Modified Inverted Generational Distance")
 plt.xticks(ms)
+plt.grid(alpha=0.5, color='gray', linestyle='dashed', linewidth=0.5, which='both')
 for i in range(len(solvers)):
     y0 = []
     y2 = []
@@ -218,9 +228,12 @@ for i in range(len(solvers)):
         quantiles = stats.quantiles(igd_plus_per_m[solvers[i]][m])
         y1.append(quantiles[1])
     plt.plot(ms, y1, label = solver_labels[solvers[i]], marker = (i + 3, 2, 0), color = colors[i], alpha = 0.75)
-plt.xlim(left = max(min(ms) - 1, 0), right = max(ms) + 1)
-plt.ylim(bottom = min_igd_plus, top = max_igd_plus)
-plt.legend(loc = "best", fontsize = "large")
+plt.yscale("log")
+plt.gca().xaxis.set_major_formatter(FormatStrFormatter('%d'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+plt.legend(loc = "best")
+plt.tight_layout()
 filename = os.path.join(dirname, "igd_plus/igd_plus_quartiles_per_m.png")
 plt.savefig(filename, format = "png")
 plt.close()

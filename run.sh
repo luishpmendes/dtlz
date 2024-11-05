@@ -1,23 +1,22 @@
 #!/bin/bash
 
 dtlzs=(1 2 3 4 5 6 7)
-ns=(50 100 200)
-ms=(3 5 8)
+ns=(100 200 500 1000 2000 5000 10000)
+ms=(2 3 4 5 6 7 8)
 solvers=(nsga2 nspso moead mhaco ihs nsbrkga)
-seeds=(523456361 596958818 885833642 536162620 872636178)
+seeds=(676718199 354367113 995100076 345047003 545229370 93092028 507401670)
 versions=(best median)
 
 num_processes=6
 
-time_limit=90
+time_limit=420
 max_num_solutions=500
-max_num_snapshots=15
+max_num_snapshots=30
 max_ref_solutions=800
 
 path=$(dirname $(realpath $0))
 
 mkdir -p ${path}/statistics
-mkdir -p ${path}/solutions
 mkdir -p ${path}/pareto
 mkdir -p ${path}/best_solutions_snapshots
 mkdir -p ${path}/num_non_dominated_snapshots
@@ -26,8 +25,6 @@ mkdir -p ${path}/populations_snapshots
 mkdir -p ${path}/num_elites_snapshots
 mkdir -p ${path}/hypervolume
 mkdir -p ${path}/hypervolume_snapshots
-mkdir -p ${path}/multiplicative_epsilon
-mkdir -p ${path}/multiplicative_epsilon_snapshots
 mkdir -p ${path}/igd_plus
 mkdir -p ${path}/igd_plus_snapshots
 mkdir -p ${path}/metrics
@@ -61,7 +58,6 @@ do
                     command+="--max-num-solutions ${max_num_solutions} "
                     command+="--max-num-snapshots ${max_num_snapshots} "
                     command+="--statistics ${path}/statistics/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
-                    command+="--solutions ${path}/solutions/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
                     command+="--pareto ${path}/pareto/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     command+="--best-solutions-snapshots ${path}/best_solutions_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
                     command+="--num-non-dominated-snapshots ${path}/num_non_dominated_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
@@ -254,64 +250,6 @@ do
                     command+="--best-solutions-snapshots-${j} ${path}/best_solutions_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
                     command+="--igd-plus-${j} ${path}/igd_plus/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     command+="--igd-plus-snapshots-${j} ${path}/igd_plus_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
-                    j=$((j+1))
-                done
-            done
-            if [ $i -lt $num_processes ]
-            then
-                commands[$i]+="$command"
-            else
-                commands[$((i%num_processes))]+=" && $command"
-            fi
-            i=$((i+1))
-        done
-    done
-done
-
-for ((i=0;i<num_processes;i++))
-do
-    commands[$i]+=") &>> ${path}/log_${i}.txt"
-done
-
-final_command=""
-
-for ((i=0;i<num_processes;i++))
-do
-    command=${commands[$i]}
-    final_command+="$command & "
-done
-
-eval $final_command
-
-wait
-
-commands=()
-
-for ((i=0;i<num_processes;i++))
-do
-    commands[$i]="("
-done
-
-i=0
-
-for dtlz in ${dtlzs[@]}
-do
-    for n in ${ns[@]}
-    do
-        for m in ${ms[@]}
-        do
-            command="${path}/bin/exec/multiplicative_epsilon_calculator_exec "
-            command+="--m ${m} "
-            command+="--reference-pareto ${path}/pareto/dtlz${dtlz}_${n}_${m}.txt "
-            j=0;
-            for solver in ${solvers[@]}
-            do
-                for seed in ${seeds[@]}
-                do
-                    command+="--pareto-${j} ${path}/pareto/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
-                    command+="--best-solutions-snapshots-${j} ${path}/best_solutions_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}_ "
-                    command+="--multiplicative-epsilon-${j} ${path}/multiplicative_epsilon/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
-                    command+="--multiplicative-epsilon-snapshots-${j} ${path}/multiplicative_epsilon_snapshots/dtlz${dtlz}_${n}_${m}_${solver}_${seed}.txt "
                     j=$((j+1))
                 done
             done
