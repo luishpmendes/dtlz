@@ -1,0 +1,21 @@
+DTLZ: 4
+Number of variables: 1000
+Number of objectives: 6
+Seed: 545229370
+Time limit: 420
+Iterations limit: 4294967295
+Maximum number of solutions: 500
+Maximum number of snapshots: 30
+Population size: 300
+Number of iterations: 1172
+Solutions obtained: 500
+Solving time: 420.306
+Number of snapshots: 30
+Time next snapshot: 420.472
+Time when the last snapshot was taken: 420.3
+Number of iteration of the next snapshot: 4294967295
+Iteration when the last snapshot was taken: 1172
+Crossover probability: 0.95
+Distribution index for crossover: 10
+Mutation probability: 0.01
+Distribution index for mutation: 50

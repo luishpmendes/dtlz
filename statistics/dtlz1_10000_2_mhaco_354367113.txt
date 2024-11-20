@@ -1,0 +1,24 @@
+DTLZ: 1
+Number of variables: 10000
+Number of objectives: 2
+Seed: 354367113
+Time limit: 420
+Iterations limit: 4294967295
+Maximum number of solutions: 500
+Maximum number of snapshots: 30
+Population size: 300
+Number of iterations: 602
+Solutions obtained: 450
+Solving time: 420.404
+Number of snapshots: 30
+Time next snapshot: 421.241
+Time when the last snapshot was taken: 420.392
+Number of iteration of the next snapshot: 4294967295
+Iteration when the last snapshot was taken: 602
+Number of solutions stored in the solution archive: 63
+Convergence speed: 1
+Threshold: 1
+nGenMark: 7
+EvalStop: 0
+Focus: 0
+Memory: 1

@@ -1,0 +1,25 @@
+DTLZ: 4
+Number of variables: 200
+Number of objectives: 4
+Seed: 345047003
+Time limit: 420
+Iterations limit: 4294967295
+Maximum number of solutions: 500
+Maximum number of snapshots: 30
+Population size: 300
+Number of iterations: 40409
+Solutions obtained: 175
+Solving time: 420.009
+Number of snapshots: 30
+Time next snapshot: 420.011
+Time when the last snapshot was taken: 420.008
+Number of iteration of the next snapshot: 4294967295
+Iteration when the last snapshot was taken: 40409
+Method used to generate the weights: random
+Decomposition method: tchebycheff
+Size of the weight’s neighborhood: 20
+Crossover parameter in the Differential Evolution operator: 1
+Parameter for the Differential Evolution operator: 0.5
+Chance that the neighbourhood is considered at each generation, rather than the whole population: 0.9
+Maximum number of copies reinserted in the population: 2
+Diversity preservation mechanisms activated: 1

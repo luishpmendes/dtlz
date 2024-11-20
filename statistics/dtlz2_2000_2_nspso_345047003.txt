@@ -1,0 +1,25 @@
+DTLZ: 2
+Number of variables: 2000
+Number of objectives: 2
+Seed: 345047003
+Time limit: 420
+Iterations limit: 4294967295
+Maximum number of solutions: 500
+Maximum number of snapshots: 30
+Population size: 300
+Number of iterations: 6931
+Solutions obtained: 500
+Solving time: 420.049
+Number of snapshots: 30
+Time next snapshot: 420.171
+Time when the last snapshot was taken: 420.041
+Number of iteration of the next snapshot: 4294967295
+Iteration when the last snapshot was taken: 6931
+Omega: 0.6
+C1: 2
+C2: 2
+Chi: 1
+vCoeff: 0.5
+Leader selection range: 60
+Diversity mechanism: crowding distance
+Memory: 1
